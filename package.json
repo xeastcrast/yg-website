@@ -1,16 +1,20 @@
 {
   "name": "create-next-example-app",
   "scripts": {
-    "dev": "next",
+    "dev": "nodemon server/app.js",
     "build": "next build",
-    "start": "next start"
+    "start": "cross-env NODE_ENV=production node server/app.js"
   },
   "dependencies": {
     "autoprefixer": "^8.1.0",
+    "axios": "^0.18.0",
     "babel-plugin-module-resolver": "^3.1.0",
     "babel-plugin-wrap-in-js": "^1.1.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
     "file-loader": "^1.1.9",
     "glob": "^7.1.2",
+    "joi": "^13.1.2",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.0",
     "next": "^5.0.0",
@@ -25,6 +29,9 @@
     "react-tap-event-plugin": "^3.0.2",
     "sass-loader": "^6.0.7",
     "semantic-ui-react": "^0.78.3",
+    "styled-jsx-plugin-sass": "^0.2.4",
+    "sweetalert2": "^7.17.0",
+    "sweetalert2-react-content": "^0.5.0",
     "tedious": "^2.3.1",
     "url-loader": "^0.6.2"
   },

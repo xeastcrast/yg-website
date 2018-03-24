@@ -1,0 +1,20 @@
+.dialog-form-title {
+  // background: #1e2e42;
+  // background: transparent;
+  padding-left: 0 !important;
+  border-bottom: 2px solid #fafafa;
+}
+
+.dialog-form-paper{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  // padding: 0 100px;
+}
+
+.dialog-form-body{
+  background-color: rgba(0,0,0, .4);
+}
+
+.dialog-form-overlay{
+  background: linear-gradient(rgba(32,66,86, .8), rgba(32,66,86, .55));
+}

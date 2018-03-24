@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Head from "next/head";
+import { Container } from "semantic-ui-react";
 
 import Root from "../Root";
 import HeaderComponent from "../Header/Header";
@@ -9,8 +11,11 @@ class Layout extends Component {
     return (
       <Root userAgent={this.props.userAgent}>
         <div>
+          <Head>{this.props.head}</Head>
           <HeaderComponent />
-          {children}
+          <Container fluid className="content">
+            {children}
+          </Container>
         </div>
       </Root>
     );

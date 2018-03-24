@@ -155,3 +155,15 @@ p.title {
   height: $header-height;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar {
+  height: 52.84px;
+  width: 100%;
+}
+
+

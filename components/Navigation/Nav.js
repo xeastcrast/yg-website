@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from 'next/router'
 
 import { Responsive, Menu, Container, Sticky } from "semantic-ui-react";
 
@@ -21,6 +22,16 @@ export default class Nav extends Component {
     this.setState({navbarOffset: navbar.offsetTop})
   }
 
+  isActive = (path) => {
+    if(path === 'home' && Router.pathname === '/'){
+      return true;
+    }
+    else if(path === (Router.pathname).replace('/', '')){
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const { currentOffset, navbarOffset } = this.state;
     return [
@@ -33,7 +44,7 @@ export default class Nav extends Component {
         <Menu
           inverted
           style={{
-            backgroundColor: "rgba(0,0,0, 0.7)"
+            background: "radial-gradient(#1e2e42, #0c1a2b)"
           }}
           pointing
           secondary
@@ -43,19 +54,26 @@ export default class Nav extends Component {
           <Container>
             <Menu.Item
               name="home"
-              content={currentOffset}
-              active={true}
+              content="หน้าแรก"
+              active={this.isActive("home")}
               // onClick={this.handleItemClick}
             />
             <Menu.Item
-              name="offsetTop"
-              content={navbarOffset}
-              // active={activeItem === "messages"}
+              name="info-server"
+              content="ข้อมูลเซิฟเวอร์"
+              active={this.isActive("info-server")}
               // onClick={this.handleItemClick}
             />
             <Menu.Item
-              name="friends"
-              // active={activeItem === "friends"}
+              name="download"
+              content="ดาวน์โหลดเกมส์"
+              active={this.isActive("download")}
+              // onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name="shop"
+              content="ร้านค้า"
+              active={this.isActive("shop")}
               // onClick={this.handleItemClick}
             />
             <Menu.Menu position="right">

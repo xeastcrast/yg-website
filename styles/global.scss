@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Kanit|Mina');
+@import './ui/radio.scss';
+@import './ui/important/header.scss';
+@import './ui/dialog.scss';
 
 *{
     font-family: 'Kanit', sans-serif ;
 }
 
-.sticky{
-    position: fixed;
-    top: 0;
-    width: 100%;
+.item{
+    transition-duration: .3s !important;
+    transition-timing-function: ease !important;
+    transition-property: all !important;
+}
+
+.item:hover{
+    text-shadow: 0 0 10px #fafafa;
 }

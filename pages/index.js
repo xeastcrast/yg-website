@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Head from "next/head";
 
 import Layout from "../components/Layout/Layout";
 class Index extends Component {
   render() {
     return (
-      <Layout userAgent={this.props.userAgent}>
-        <Head>
+      <Layout userAgent={this.props.userAgent}
+        head={
           <title>หน้าแรก</title>
-        </Head>
+        }
+      >
       </Layout>
     );
   }

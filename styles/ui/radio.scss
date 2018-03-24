@@ -1,0 +1,8 @@
+.radio-field { // parent of radio
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  div{
+    display: block !important; // make radio block display insteaded table display
+  }
+}
