@@ -1,26 +1,30 @@
-import React, { Component } from "react"
-import getMuiTheme from "material-ui/styles/getMuiTheme"
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
-import {
-	tealA200,
-	teal200,
-	tealA400,
-	grey50
-} from "material-ui/styles/colors"
-import injectTapEventPlugin from "react-tap-event-plugin"
+import React, { Component } from "react";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
+
+import { tealA200, teal200, tealA400, grey50 } from "material-ui/styles/colors";
+import injectTapEventPlugin from "react-tap-event-plugin";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { changeUiState, actionTypes } from "../../store/store";
+import RegisterComponent from "../Register/Register";
 
 if (!process.tapEventInjected) {
-	injectTapEventPlugin()
-	process.tapEventInjected = true
+  injectTapEventPlugin();
+  process.tapEventInjected = true;
 }
 
 class Root extends Component {
-	constructor(props, context) {
-		super(props, context)
-	}
+  constructor(props, context) {
+    super(props, context);
+  }
 
-	render() {
-		const { userAgent, children } = this.props
+  render() {
+    const { userAgent, children } = this.props;
+    const { regDialog } = this.props.ui;
 
     const muiTheme = getMuiTheme(
       {
@@ -37,10 +41,50 @@ class Root extends Component {
         },
         userAgent: userAgent
       }
-    )
+    );
 
-		return <MuiThemeProvider muiTheme={muiTheme}>{children}</MuiThemeProvider>
-	}
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
+          <Dialog
+            title="สมัครสมาชิก Yulgang"
+            titleClassName="dialog-form-title"
+            bodyClassName="dialog-form-body"
+            paperClassName="dialog-form-paper"
+            overlayClassName="dialog-form-overlay"
+            autoScrollBodyContent={true}
+            modal={true}
+            open={regDialog}
+            actions={[
+              <FlatButton
+                label="ยกเลิก"
+                primary={true}
+                onClick={() => this.props.triggerUiDialog("regDialog", false)}
+              />
+            ]}
+          >
+            <RegisterComponent />
+          </Dialog>
+          {children}
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
-export default Root
+const mapStateToProps = ({ ui }) => ({ ui });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    triggerUiDialog: (name, state) =>
+      changeUiState(
+        {
+          type: actionTypes.UI_CHANGE,
+          name: name,
+          state: state
+        },
+        dispatch
+      )
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Root);

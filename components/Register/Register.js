@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import swal2 from "sweetalert2";
+import swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import Router from "next/router";
+import { connect } from "react-redux";
+import { actionTypes, changeUiState } from "../../store/store";
+import { RegisterPath } from '../../constants/end_point'
 import {
   Grid,
   Popup,
@@ -19,36 +24,78 @@ class RegisterComponent extends Component {
   state = {
     //initial value
     regData: {
-      user: "",
-      pass: "",
-      repass: "",
-      email: "",
-      phone: "",
-      fname: "",
-      lname: "",
-      gender: "male",
-      question: "",
-      answer: ""
-    }
+      // id: "",
+      // pass: "",
+      // repass: "",
+      // email: "",
+      // phone: "",
+      // fname: "",
+      // lname: "",
+      gender: "1",
+      // question: "",
+      // answer: ""
+    },
+    validateFailed: {}
   };
+
+  constructor() {
+    super();
+    this.mySwal = withReactContent(swal);
+  }
 
   handleTextField = evt => {
     this.setState({
       regData: {
         ...this.state.regData,
         [evt.target.name]: evt.target.value
+      },
+      validateFailed: {
+        ...this.state.validateFailed,
+        [evt.target.name]: ""
       }
     });
   };
 
+  handleCloseDialog = () => {
+    this.props.triggerUiDialog("regDialog", false);
+  };
   handleRegister = () => {
-    axios
-      .post("http://localhost:3000/user/register", {
-        ...this.state
-      })
-      .then(result => {
-        alert(JSON.stringify(result.data));
-      });
+    let ip = "";
+    axios.get("https://jsonip.com/").then(result => {
+      ip = result.data.ip;
+      axios
+        .post(RegisterPath, {
+          ...this.state.regData,
+          ip: ip
+        })
+        .then(() => {
+          this.handleCloseDialog();
+          this.mySwal({
+            type: "success",
+            title: <p>สมัครสมาชิกเรียบร้อยแล้วจ้า</p>,
+            showConfirmButton: false,
+            timer: 3000
+          });
+        })
+        .catch(err => {
+          console.log(err.response)
+          this.setState({
+            validateFailed: {
+              ...err.response.data
+            }
+          });
+        });
+    });
+  };
+
+  isError = name => {
+    let text = "";
+    Object.keys(this.state.validateFailed).map(err => {
+      if (name === err) {
+        text = this.state.validateFailed[name];
+      }
+    });
+    return text;
   };
 
   render() {
@@ -60,23 +107,24 @@ class RegisterComponent extends Component {
               <TextField
                 fullWidth
                 hintStyle={{ color: "#bebebe" }}
+                errorText={this.isError("id")}
                 hintText="ไอดี"
-                name="user"
+                name="id"
                 onChange={this.handleTextField}
                 floatingLabelText={
                   <div className="field-label-icon">
                     <FontIcon className="material-icons">account_box</FontIcon>
-                    <label style={{ color: "#fafafa" }}>Username</label>
+                    <label style={{ color: "#fafafa" }}>ID</label>
                   </div>
                 }
               />
             }
             content={
               <List bulleted>
-                <List.Item>ตัวอักษร A-Z a-z สามารถใช้ _ ได้</List.Item>
+                <List.Item>ตัวอักษร A-Z a-z </List.Item>
                 <List.Item>ตัวเลข 0-9</List.Item>
                 <List.Item>
-                  ไม่สามารถใช้อักขระพิเศษใดๆได้ เช่น [], @, $, #
+                  ไม่สามารถใช้อักขระพิเศษใดๆได้ เช่น [], @, $, #, _
                 </List.Item>
                 <List.Item>ตั้งแต่ 4 - 12 ตัวอักษร</List.Item>
                 <List.Item style={{ color: "#d60437" }}>จำเป็นต้องมี</List.Item>
@@ -92,6 +140,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="password"
                 name="pass"
+                errorText={this.isError("pass")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="รหัสผ่าน"
@@ -120,8 +169,9 @@ class RegisterComponent extends Component {
             trigger={
               <TextField
                 fullWidth
-                name="repass"
+                name="confirmPass"
                 type="password"
+                errorText={this.isError("confirmPass")}
                 hintStyle={{ color: "#bebebe" }}
                 onChange={this.handleTextField}
                 hintText="ยืนยัน-รหัสผ่าน"
@@ -149,6 +199,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="email"
                 name="email"
+                errorText={this.isError("email")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="อีเมล์"
@@ -178,6 +229,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="text"
                 name="phone"
+                errorText={this.isError("phone")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="มือถือ"
@@ -206,6 +258,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="text"
                 name="fname"
+                errorText={this.isError("fname")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="ชื่อ"
@@ -220,7 +273,6 @@ class RegisterComponent extends Component {
             content={
               <List bulleted>
                 <List.Item>ชื่อจริง</List.Item>
-                <List.Item style={{ color: "#d60437" }}>จำเป็นต้องมี</List.Item>
               </List>
             }
             position="left center"
@@ -233,6 +285,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="text"
                 name="lname"
+                errorText={this.isError("lname")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="นามสกุล"
@@ -246,7 +299,6 @@ class RegisterComponent extends Component {
             content={
               <List bulleted>
                 <List.Item>นามสกุล</List.Item>
-                <List.Item style={{ color: "#d60437" }}>จำเป็นต้องมี</List.Item>
               </List>
             }
             position="left center"
@@ -260,11 +312,11 @@ class RegisterComponent extends Component {
           <RadioButtonGroup
             name="gender"
             onChange={this.handleTextField}
-            defaultSelected="male"
+            defaultSelected="1"
             className="radio-field"
           >
-            <RadioButton value="male" label="ผู้ชาย" />
-            <RadioButton value="female" label="ผู้หญิง" />
+            <RadioButton value="1" label="ผู้ชาย" />
+            <RadioButton value="2" label="ผู้หญิง" />
           </RadioButtonGroup>
         </Grid.Column>
         <Grid.Column width={16}>
@@ -274,6 +326,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="text"
                 name="question"
+                errorText={this.isError("question")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="คำถามเพื่อความปลอดภัย?"
@@ -295,7 +348,6 @@ class RegisterComponent extends Component {
                   คำถามเพื่อความปลอดภัยใช้สำหรับกรณีที่ผู้เล่นต้องการจะลบตัวละคร
                   เป็นคำถามป้องกันด่านแรกก่อนที่จะยืนยันด้วยเบอร์มือถือ
                 </List.Item>
-                <List.Item>ใช้ลบตัวละคร</List.Item>
                 <List.Item style={{ color: "#d60437" }}>จำเป็นต้องมี</List.Item>
               </List>
             }
@@ -309,6 +361,7 @@ class RegisterComponent extends Component {
                 fullWidth
                 type="text"
                 name="answer"
+                errorText={this.isError("answer")}
                 onChange={this.handleTextField}
                 hintStyle={{ color: "#bebebe" }}
                 hintText="คำตอบ"
@@ -342,4 +395,20 @@ class RegisterComponent extends Component {
   }
 }
 
-export default RegisterComponent;
+const mapStateToProps = ({ ui }) => ({ ui });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    triggerUiDialog: (name, state) =>
+      changeUiState(
+        {
+          type: actionTypes.UI_CHANGE,
+          name: name,
+          state: state
+        },
+        dispatch
+      )
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterComponent);

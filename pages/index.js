@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { initStore } from '../store/store'
+import withRedux from 'next-redux-wrapper'
+
 
 import Layout from "../components/Layout/Layout";
 class Index extends Component {
@@ -14,4 +17,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+export default withRedux(initStore)(Index);

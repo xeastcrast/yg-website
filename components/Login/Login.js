@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import TextField from "material-ui/TextField";
 import FontIcon from "material-ui/FontIcon";
-import FlatButton from "material-ui/FlatButton";
-import Dialog from "material-ui/Dialog";
+import axios from "axios";
+import swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { connect } from "react-redux";
 import {
   Grid,
   Divider,
@@ -16,19 +18,44 @@ import {
   Dimmer
 } from "semantic-ui-react";
 
-import RegisterComponent from "../Register/Register";
+import { LoginPath } from "../../constants/end_point";
+import { actionTypes, changeUiState } from "../../store/store";
 
-export default class LoginComponent extends Component {
-  state = {
-    register: false
+class LoginComponent extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loginData: {}
+    };
+    this.swal = withReactContent(swal)
+  }
+
+  handleTextField = evt => {
+    this.setState({
+      loginData: {
+        ...this.state.loginData,
+        [evt.target.name]: evt.target.value
+      }
+    });
   };
 
-  handleClose = () => {
-    this.setState({ register: false });
+  handleLogin = () => {
+    axios.post(LoginPath, this.state.loginData).then(() => {
+      this.swal({
+        type: "success",
+        title: <p>เข้าสู่ระบบสำเร็จ</p>,
+        timer: 2000
+      })
+    }).catch(err=>{
+      this.swal({
+        type: "error",
+        title: "เอ๊ะ!!",
+        text: "ไอดี หรือ รหัสผ่านไม่ถูกต้อง!!"
+      })
+    });
   };
 
   render() {
-    const { register } = this.state;
     return (
       <Grid stackable>
         <Grid.Row>
@@ -42,10 +69,12 @@ export default class LoginComponent extends Component {
               fullWidth
               hintStyle={{ color: "#bebebe" }}
               hintText="ไอดี"
+              name="id"
+              onChange={this.handleTextField}
               floatingLabelText={
                 <div className="field-label-icon">
                   <FontIcon className="material-icons">account_box</FontIcon>
-                  <label style={{ color: "#fafafa" }}>Username</label>
+                  <label style={{ color: "#fafafa" }}>ID</label>
                 </div>
               }
             />
@@ -54,6 +83,8 @@ export default class LoginComponent extends Component {
               hintStyle={{ color: "#bebebe" }}
               hintText="รหัสผ่าน"
               type="password"
+              name="pass"
+              onChange={this.handleTextField}
               floatingLabelText={
                 <div className="field-label-icon">
                   <FontIcon className="material-icons">lock</FontIcon>
@@ -65,7 +96,13 @@ export default class LoginComponent extends Component {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={8}>
-            <Button inverted basic fluid color="teal">
+            <Button
+              inverted
+              basic
+              fluid
+              color="teal"
+              onClick={this.handleLogin}
+            >
               เข้าสู่ระบบ
             </Button>
           </Grid.Column>
@@ -85,37 +122,30 @@ export default class LoginComponent extends Component {
               animated="fade"
               fluid
               color="orange"
-              onClick={() =>
-                this.setState({
-                  register: !this.state.register
-                })
-              }
+              onClick={() => this.props.triggerUiDialog("regDialog", true)}
             >
               <Button.Content visible>สมัครสมาชิก</Button.Content>
               <Button.Content hidden>ฟรี</Button.Content>
             </Button>
-            <Dialog
-              title="สมัครสมาชิก Yulgang"
-              titleClassName="dialog-form-title"
-              bodyClassName="dialog-form-body"
-              paperClassName="dialog-form-paper"
-              overlayClassName="dialog-form-overlay"
-              autoScrollBodyContent={true}
-              modal={true}
-              open={register}
-              actions={[
-                <FlatButton
-                  label="ยกเลิก"
-                  primary={true}
-                  onClick={this.handleClose}
-                />
-              ]}
-            >
-              <RegisterComponent />
-            </Dialog>
           </Grid.Column>
         </Grid.Row>
       </Grid>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    triggerUiDialog: (name, state) =>
+      changeUiState(
+        {
+          type: actionTypes.UI_CHANGE,
+          name: name,
+          state: state
+        },
+        dispatch
+      )
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LoginComponent);
