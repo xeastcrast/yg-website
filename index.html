@@ -1,0 +1,228 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8" class="next-head next-head"/><title class="next-head">หน้าแรก</title><link rel="preload" href="https://xeastcrast.github.io/yulgang-web/_next/e488fb27-fe25-47ba-9ac6-0971c4b7deb6/page/index.js" as="script"/><link rel="preload" href="https://xeastcrast.github.io/yulgang-web/_next/e488fb27-fe25-47ba-9ac6-0971c4b7deb6/page/_error.js" as="script"/><link rel="preload" href="https://xeastcrast.github.io/yulgang-web/_next/ff8c03f67f0140d63928f045cade9a02/app.js" as="script"/><title>Untitled</title><meta name="viewport" content="width=device-width, initial-scale=1"/><meta charSet="utf-8"/><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/><link href="/static/style/semantic/dist/semantic.min.css" rel="stylesheet"/><style>@import url("https://fonts.googleapis.com/css?family=Kanit|Mina");
+.radio-field {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center; }
+.radio-field div {
+    display: block !important; }
+.bgApp1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 700px;
+  content: "";
+  background: url("../static/Image/Bg/IndexBg.jpg") no-repeat center center fixed !important;
+  background-size: cover !important;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-name: fadeBg;
+          animation-name: fadeBg; }
+@-webkit-keyframes fadeBg {
+  0% {
+    -webkit-filter: brightness(0);
+            filter: brightness(0); }
+  70% {
+    -webkit-filter: brightness(1.3);
+            filter: brightness(1.3); }
+  100% {
+    -webkit-filter: brightness(1);
+            filter: brightness(1); } }
+@keyframes fadeBg {
+  0% {
+    -webkit-filter: brightness(0);
+            filter: brightness(0); }
+  70% {
+    -webkit-filter: brightness(1.3);
+            filter: brightness(1.3); }
+  100% {
+    -webkit-filter: brightness(1);
+            filter: brightness(1); } }
+.login-segment {
+  position: absolute !important;
+  width: 90% !important;
+  max-width: 450px !important;
+  height: 500px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 8% auto !important;
+  border-radius: 3px;
+  background: linear-gradient(#031118, rgba(0, 0, 0, 0.7), rgba(211, 137, 46, 0.23)) !important;
+  -webkit-animation-name: showLogin;
+          animation-name: showLogin;
+  -webkit-animation-duration: 1.4s;
+          animation-duration: 1.4s; }
+@media only screen and (min-width: 767px) {
+    .login-segment {
+      height: 450px !important; } }
+@-webkit-keyframes showLogin {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-filter: blur(15px);
+            filter: blur(15px); }
+  50% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: none;
+            filter: none; } }
+@keyframes showLogin {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-filter: blur(15px);
+            filter: blur(15px); }
+  50% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: none;
+            filter: none; } }
+@-webkit-keyframes showActorLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+    -webkit-filter: grayscale(0.8);
+            filter: grayscale(0.8); }
+  30% {
+    -webkit-transform: translateX(-3%);
+            transform: translateX(-3%); }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: grayscale(0);
+            filter: grayscale(0); } }
+@keyframes showActorLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+    -webkit-filter: grayscale(0.8);
+            filter: grayscale(0.8); }
+  30% {
+    -webkit-transform: translateX(-3%);
+            transform: translateX(-3%); }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: grayscale(0);
+            filter: grayscale(0); } }
+@-webkit-keyframes showActorRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+    -webkit-filter: grayscale(0.8);
+            filter: grayscale(0.8); }
+  30% {
+    -webkit-transform: translateX(3%);
+            transform: translateX(3%); }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: grayscale(0);
+            filter: grayscale(0); } }
+@keyframes showActorRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+    -webkit-filter: grayscale(0.8);
+            filter: grayscale(0.8); }
+  30% {
+    -webkit-transform: translateX(3%);
+            transform: translateX(3%); }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: grayscale(0);
+            filter: grayscale(0); } }
+p.title {
+  color: #fafafa;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 1.7em;
+  text-align: center; }
+.header-section {
+  background-color: rgba(0, 0, 0, 0.4); }
+.model-left,
+.model-right {
+  position: absolute;
+  width: 100%;
+  height: 700px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  bottom: 0; }
+.model-left {
+  background: url("../static/Image/transparent/Nolhol.png") no-repeat calc(50% - 680px) bottom;
+  background-size: 1000px auto;
+  -webkit-animation-name: showActorLeft;
+          animation-name: showActorLeft;
+  -webkit-animation-duration: 1.4s;
+          animation-duration: 1.4s; }
+@media only screen and (max-width: 1560px) {
+    .model-left {
+      background-position: calc(50% - 400px) bottom;
+      background-size: 800px auto; } }
+.field-label-icon {
+  display: flex; }
+.field-label-icon label {
+    margin-left: 7px; }
+.model-right {
+  background: url("../static/Image/transparent/Actor2.png") no-repeat calc(50% + 600px) bottom;
+  background-size: 900px auto;
+  -webkit-animation-name: showActorRight;
+          animation-name: showActorRight;
+  -webkit-animation-duration: 1.4s;
+          animation-duration: 1.4s; }
+@media only screen and (max-width: 1560px) {
+    .model-right {
+      background-position: calc(50% + 350px) bottom;
+      background-size: 700px auto; } }
+.header-section {
+  width: 100%;
+  height: 700px; }
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%; }
+.navbar {
+  height: 52.84px;
+  width: 100%; }
+.dialog-form-title {
+  padding-left: 0 !important;
+  border-bottom: 2px solid #fafafa; }
+.dialog-form-paper {
+  background-color: transparent !important;
+  box-shadow: none !important; }
+.dialog-form-body {
+  background-color: rgba(0, 0, 0, 0.4); }
+.dialog-form-overlay {
+  background: linear-gradient(rgba(32, 66, 86, 0.8), rgba(32, 66, 86, 0.55)); }
+* {
+  font-family: 'Kanit', sans-serif; }
+.item {
+  transition-duration: .3s !important;
+  transition-timing-function: ease !important;
+  transition-property: all !important; }
+.item:hover {
+  text-shadow: 0 0 10px #fafafa; }
+</style></head><body><div id="__next"><div data-reactroot=""><div><div class="ui active transition visible dimmer"><div class="content"><div class="center"><div class="ui text loader">กำลังโหลด...</div></div></div></div><div class="ui fluid container content"></div></div></div></div><div id="__next-error"></div><script>
+          __NEXT_DATA__ = {"props":{"isServer":true,"store":{},"initialState":{"ui":{"regDialog":false}},"initialProps":{}},"pathname":"/","query":{},"buildId":"e488fb27-fe25-47ba-9ac6-0971c4b7deb6","buildStats":{"app.js":{"hash":"ff8c03f67f0140d63928f045cade9a02"}},"assetPrefix":"https://xeastcrast.github.io/yulgang-web","nextExport":true,"err":null,"chunks":[]}
+          module={}
+          __NEXT_LOADED_PAGES__ = []
+          __NEXT_LOADED_CHUNKS__ = []
+
+          __NEXT_REGISTER_PAGE = function (route, fn) {
+            __NEXT_LOADED_PAGES__.push({ route: route, fn: fn })
+          }
+
+          __NEXT_REGISTER_CHUNK = function (chunkName, fn) {
+            __NEXT_LOADED_CHUNKS__.push({ chunkName: chunkName, fn: fn })
+          }
+        </script><script async="" id="__NEXT_PAGE__/" type="text/javascript" src="https://xeastcrast.github.io/yulgang-web/_next/e488fb27-fe25-47ba-9ac6-0971c4b7deb6/page/index.js"></script><script async="" id="__NEXT_PAGE__/_error" type="text/javascript" src="https://xeastcrast.github.io/yulgang-web/_next/e488fb27-fe25-47ba-9ac6-0971c4b7deb6/page/_error.js"></script><script type="text/javascript" src="https://xeastcrast.github.io/yulgang-web/_next/ff8c03f67f0140d63928f045cade9a02/app.js" async=""></script></body></html>
